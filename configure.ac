@@ -69,10 +69,8 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([ ], [ ])], [
 ])
 
 AC_CHECK_HEADERS([usrsctp.h],
-  [AC_CHECK_LIB([usrsctp], [usrsctp_init],
     [with_sctp="yes"; USRSCTP_LIBS="-lusrsctp"],
     [with_sctp="no"]
-  )],[with_sctp="no"]
 )
 AC_SUBST(USRSCTP_LIBS)
 if test "x$with_sctp" != "xyes"; then
@@ -236,7 +234,7 @@ fi
 AC_SUBST(plugindir)
 
 dnl set proper LDFLAGS for plugins
-GST_PLUGIN_LDFLAGS='-module -avoid-version -export-symbols-regex [_]*\(gst_\|Gst\|GST_\).*'
+GST_PLUGIN_LDFLAGS='-module -avoid-version -no-undefined -export-symbols-regex [_]*\(gst_\|Gst\|GST_\).*'
 AC_SUBST(GST_PLUGIN_LDFLAGS)
 
 AC_CONFIG_FILES([Makefile gst-libs/Makefile gst-libs/gst/Makefile
